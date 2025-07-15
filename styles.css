@@ -2,87 +2,87 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #E8F5E9; /* Verde pastel claro */
+    background-color: #F5F6F5; /* Gris claro empresarial */
     color: #263238; /* Gris oscuro para texto */
     margin: 0;
-    padding: 20px;
+    padding: 30px;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    background-color: #FFFFFF; /* Fondo blanco para el contenedor */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    background-color: #FFFFFF; /* Fondo blanco */
+    border: 1px solid #CFD8DC; /* Borde gris claro */
+    padding: 25px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     text-align: center;
-    color: #2E7D32; /* Verde oscuro */
+    color: #1A237E; /* Azul oscuro */
     font-weight: 700;
-    margin-bottom: 30px;
+    font-size: 2em;
+    margin-bottom: 40px;
+    text-transform: uppercase;
 }
 
 .year {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .year h2 {
-    background-color: #4CAF50; /* Verde medio */
+    background-color: #1A237E; /* Azul oscuro */
     color: #FFFFFF;
-    padding: 12px;
-    border-radius: 6px;
+    padding: 15px;
     font-weight: 500;
-    font-size: 1.5em;
+    font-size: 1.6em;
+    border-left: 4px solid #3F51B5; /* Azul medio */
 }
 
-.semester {
-    display: flex;
-    flex-wrap: wrap;
+.semester, .courses {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
-    padding: 15px;
-    background-color: #F1F8E9; /* Verde pastel muy claro */
-    border-radius: 6px;
+    padding: 20px;
+    background-color: #ECEFF1; /* Gris muy claro */
 }
 
 .semester h3 {
-    width: 100%;
-    color: #2E7D32; /* Verde oscuro */
+    grid-column: 1 / -1;
+    color: #1A237E; /* Azul oscuro */
     font-weight: 500;
-    font-size: 1.2em;
-    margin-bottom: 10px;
+    font-size: 1.3em;
+    margin-bottom: 15px;
 }
 
 .course {
     background-color: #FFFFFF;
-    border: 1px solid #C8E6C9; /* Borde verde pastel */
-    padding: 12px;
-    border-radius: 6px;
+    border: 1px solid #CFD8DC; /* Borde gris claro */
+    padding: 15px;
     cursor: pointer;
-    width: calc(50% - 10px);
-    transition: background-color 0.3s, box-shadow 0.3s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
 }
 
 .course:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .course.completed {
     text-decoration: line-through;
-    background-color: #DCEDC8; /* Verde pastel claro para completados */
+    background-color: #E8EAF6; /* Azul claro para completados */
     color: #263238;
 }
 
 .course.locked {
-    background-color: #ECEFF1; /* Gris claro para bloqueados */
+    background-color: #CFD8DC; /* Gris claro para bloqueados */
     color: #78909C;
     cursor: not-allowed;
 }
 
 @media (max-width: 600px) {
-    .course {
-        width: 100%;
+    .semester, .courses {
+        grid-template-columns: 1fr;
     }
 }

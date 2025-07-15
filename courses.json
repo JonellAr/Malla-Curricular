@@ -1,25 +1,15 @@
 [
     {
         "year": 1,
-        "semesters": [
-            {
-                "name": "Semestre 1",
-                "courses": [
-                    {"name": "Metodología y tecnología de la programación", "credits": 10},
-                    {"name": "Introducción a los ordenadores", "credits": 9},
-                    {"name": "Cálculo", "credits": 10},
-                    {"name": "Electrónica básica", "credits": 12}
-                ]
-            },
-            {
-                "name": "Semestre 2",
-                "courses": [
-                    {"name": "Business and Engineering", "credits": 4},
-                    {"name": "Pensamiento y creatividad I", "credits": 2},
-                    {"name": "Diseño y usabilidad I", "credits": 5},
-                    {"name": "Álgebra", "credits": 8}
-                ]
-            }
+        "courses": [
+            {"name": "Metodología y tecnología de la programación", "credits": 10},
+            {"name": "Introducción a los ordenadores", "credits": 9},
+            {"name": "Cálculo", "credits": 10},
+            {"name": "Electrónica básica", "credits": 12},
+            {"name": "Business and Engineering", "credits": 4},
+            {"name": "Pensamiento y creatividad I", "credits": 2},
+            {"name": "Diseño y usabilidad I", "credits": 5},
+            {"name": "Álgebra", "credits": 8}
         ]
     },
     {

@@ -13,74 +13,104 @@ document.addEventListener('DOMContentLoaded', () => {
             yearDiv.className = 'year';
             yearDiv.innerHTML = `<h2>Curso ${year.year}</h2>`;
 
-            year.semesters.forEach((semester, semesterIndex) => {
-                const semesterDiv = document.createElement('div');
-                semesterDiv.className = 'semester';
-                semesterDiv.innerHTML = `<h3>${semester.name}</h3>`;
-
-                const isSemesterUnlocked = checkSemesterUnlocked(years, year.year, semesterIndex, completedCourses);
-
-                semester.courses.forEach(course => {
+            // Curso 1: Sin semestres, solo cursos
+            if (year.year === 1) {
+                const coursesDiv = document.createElement('div');
+                coursesDiv.className = 'courses';
+                year.courses.forEach(course => {
                     const courseDiv = document.createElement('div');
                     courseDiv.className = 'course';
                     courseDiv.innerHTML = `${course.name} (${course.credits} créditos)`;
 
-                    const courseKey = `${year.year}-${semesterIndex}-${course.name}`;
+                    const courseKey = `1-0-${course.name}`;
                     if (completedCourses[courseKey]) {
                         courseDiv.classList.add('completed');
                     }
 
-                    if (!isSemesterUnlocked) {
-                        courseDiv.classList.add('locked');
-                    } else {
-                        courseDiv.addEventListener('click', () => {
-                            if (!courseDiv.classList.contains('locked')) {
-                                courseDiv.classList.toggle('completed');
-                                completedCourses[courseKey] = courseDiv.classList.contains('completed');
-                                localStorage.setItem('completedCourses', JSON.stringify(completedCourses));
-                                updateFutureSemesters(years, completedCourses, year.year, semesterIndex);
-                            }
-                        });
-                    }
+                    courseDiv.addEventListener('click', () => {
+                        courseDiv.classList.toggle('completed');
+                        completedCourses[courseKey] = courseDiv.classList.contains('completed');
+                        localStorage.setItem('completedCourses', JSON.stringify(completedCourses));
+                        updateFutureYears(years, completedCourses, year.year);
+                    });
 
-                    semesterDiv.appendChild(courseDiv);
+                    coursesDiv.appendChild(courseDiv);
                 });
+                yearDiv.appendChild(coursesDiv);
+            } else {
+                // Cursos 2, 3, 4: Con semestres
+                year.semesters.forEach((semester, semesterIndex) => {
+                    const semesterDiv = document.createElement('div');
+                    semesterDiv.className = 'semester';
+                    semesterDiv.innerHTML = `<h3>${semester.name}</h3>`;
 
-                yearDiv.appendChild(semesterDiv);
-            });
+                    const isYearUnlocked = checkYearUnlocked(years, year.year, completedCourses);
+
+                    semester.courses.forEach(course => {
+                        const courseDiv = document.createElement('div');
+                        courseDiv.className = 'course';
+                        courseDiv.innerHTML = `${course.name} (${course.credits} créditos)`;
+
+                        const courseKey = `${year.year}-${semesterIndex}-${course.name}`;
+                        if (completedCourses[courseKey]) {
+                            courseDiv.classList.add('completed');
+                        }
+
+                        if (!isYearUnlocked) {
+                            courseDiv.classList.add('locked');
+                        } else {
+                            courseDiv.addEventListener('click', () => {
+                                if (!courseDiv.classList.contains('locked')) {
+                                    courseDiv.classList.toggle('completed');
+                                    completedCourses[courseKey] = courseDiv.classList.contains('completed');
+                                    localStorage.setItem('completedCourses', JSON.stringify(completedCourses));
+                                    updateFutureYears(years, completedCourses, year.year);
+                                }
+                            });
+                        }
+
+                        semesterDiv.appendChild(courseDiv);
+                    });
+
+                    yearDiv.appendChild(semesterDiv);
+                });
+            }
 
             curriculumDiv.appendChild(yearDiv);
         });
     }
 
-    function checkSemesterUnlocked(years, currentYear, currentSemesterIndex, completedCourses) {
-        if (currentYear === 1 && currentSemesterIndex === 0) return true;
+    function checkYearUnlocked(years, currentYear, completedCourses) {
+        if (currentYear === 1) return true;
+
+        const previousYear = years.find(y => y.year === currentYear - 1);
+        if (!previousYear) return false;
 
         let previousCourses = [];
-        if (currentSemesterIndex === 0) {
-            const previousYear = years.find(y => y.year === currentYear - 1);
-            if (previousYear) {
-                previousCourses = previousYear.semesters[1].courses;
-            }
+        if (currentYear === 2) {
+            // Curso 1 tiene cursos directamente
+            previousCourses = previousYear.courses;
         } else {
-            previousCourses = years.find(y => y.year === currentYear).semesters[0].courses;
+            // Otros cursos tienen semestres
+            previousCourses = previousYear.semesters.flatMap(semester => semester.courses);
         }
 
         return previousCourses.every(course => {
-            const courseKey = `${currentYear - (currentSemesterIndex === 0 ? 1 : 0)}-${currentSemesterIndex === 0 ? 1 : 0}-${course.name}`;
+            const courseKey = currentYear === 2 ? `1-0-${course.name}` : `${currentYear - 1}-${previousYear.semesters.findIndex(s => s.courses.includes(course))}-${course.name}`;
             return completedCourses[courseKey];
         });
     }
 
-    function updateFutureSemesters(years, completedCourses, currentYear, currentSemesterIndex) {
+    function updateFutureYears(years, completedCourses, currentYear) {
         const allCourses = document.querySelectorAll('.course');
         allCourses.forEach(courseDiv => {
             const courseKey = courseDiv.textContent.split(' (')[0];
-            const [year, semesterIndex] = courseDiv.parentElement.parentElement.querySelector('h2').textContent.match(/\d+/)[0] + '-' + (courseDiv.parentElement.querySelector('h3').textContent.includes('Semestre 1') ? 0 : 1);
-            
-            // Solo actualiza semestres futuros, no el semestre actual
-            if (parseInt(year) > currentYear || (parseInt(year) === currentYear && parseInt(semesterIndex) > currentSemesterIndex)) {
-                if (!checkSemesterUnlocked(years, parseInt(year), parseInt(semesterIndex), completedCourses)) {
+            const year = parseInt(courseDiv.parentElement.parentElement.querySelector('h2').textContent.match(/\d+/)[0]);
+            const semesterIndex = courseDiv.parentElement.classList.contains('courses') ? 0 : (courseDiv.parentElement.querySelector('h3').textContent.includes('Semestre 1') ? 0 : 1);
+
+            // Solo actualiza cursos futuros
+            if (year > currentYear) {
+                if (!checkYearUnlocked(years, year, completedCourses)) {
                     courseDiv.classList.add('locked');
                     courseDiv.style.pointerEvents = 'none';
                 } else {
