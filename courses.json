@@ -1,0 +1,99 @@
+[
+    {
+        "year": 1,
+        "semesters": [
+            {
+                "name": "Semestre 1",
+                "courses": [
+                    {"name": "Metodología y tecnología de la programación", "credits": 10},
+                    {"name": "Introducción a los ordenadores", "credits": 9},
+                    {"name": "Cálculo", "credits": 10},
+                    {"name": "Electrónica básica", "credits": 12}
+                ]
+            },
+            {
+                "name": "Semestre 2",
+                "courses": [
+                    {"name": "Business and Engineering", "credits": 4},
+                    {"name": "Pensamiento y creatividad I", "credits": 2},
+                    {"name": "Diseño y usabilidad I", "credits": 5},
+                    {"name": "Álgebra", "credits": 8}
+                ]
+            }
+        ]
+    },
+    {
+        "year": 2,
+        "semesters": [
+            {
+                "name": "Semestre 1",
+                "courses": [
+                    {"name": "Diseño y programación orientados a objetos", "credits": 6},
+                    {"name": "Value Chain and Financial Economics", "credits": 4},
+                    {"name": "Estadística y análisis matemático", "credits": 8},
+                    {"name": "Animación 3D", "credits": 5},
+                    {"name": "Técnicas avanzadas de programación", "credits": 4},
+                    {"name": "Programación de gráficos 3D", "credits": 5}
+                ]
+            },
+            {
+                "name": "Semestre 2",
+                "courses": [
+                    {"name": "Diseño y usabilidad II", "credits": 5},
+                    {"name": "Bases de datos", "credits": 5},
+                    {"name": "Pensamiento y creatividad II", "credits": 2},
+                    {"name": "Señales y sistemas de transmisión", "credits": 6},
+                    {"name": "Storytelling y creación visual", "credits": 4},
+                    {"name": "Expresión artística", "credits": 2}
+                ]
+            }
+        ]
+    },
+    {
+        "year": 3,
+        "semesters": [
+            {
+                "name": "Semestre 1",
+                "courses": [
+                    {"name": "Redes de área local", "credits": 6},
+                    {"name": "Producción multimedia I", "credits": 4},
+                    {"name": "Pensamiento y creatividad III", "credits": 3},
+                    {"name": "Procesado digital de la señal", "credits": 4},
+                    {"name": "Proyectos web I", "credits": 4}
+                ]
+            },
+            {
+                "name": "Semestre 2",
+                "courses": [
+                    {"name": "Proyectos web II", "credits": 5},
+                    {"name": "Simulación física", "credits": 6},
+                    {"name": "Procesado digital de la imagen", "credits": 4},
+                    {"name": "Organizational Management", "credits": 3}
+                ]
+            }
+        ]
+    },
+    {
+        "year": 4,
+        "semesters": [
+            {
+                "name": "Semestre 1",
+                "courses": [
+                    {"name": "Producción multimedia II", "credits": 6},
+                    {"name": "Televisión interactiva", "credits": 3},
+                    {"name": "Procesamiento de audio y habla", "credits": 4},
+                    {"name": "Project Management", "credits": 3}
+                ]
+            },
+            {
+                "name": "Semestre 2",
+                "courses": [
+                    {"name": "Trabajo final de grado", "credits": 16},
+                    {"name": "Tendencias tecnológicas", "credits": 4},
+                    {"name": "Entrepreneurship and Innovation", "credits": 3},
+                    {"name": "Prácticas externas", "credits": 4}
+                ]
+            }
+        ]
+    }
+]
