@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 courseDiv.classList.toggle('completed');
                                 completedCourses[courseKey] = courseDiv.classList.contains('completed');
                                 localStorage.setItem('completedCourses', JSON.stringify(completedCourses));
-                                updateSemesters(years, completedCourses);
+                                updateFutureSemesters(years, completedCourses, year.year, semesterIndex);
                             }
                         });
                     }
@@ -72,19 +72,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function updateSemesters(years, completedCourses) {
+    function updateFutureSemesters(years, completedCourses, currentYear, currentSemesterIndex) {
         const allCourses = document.querySelectorAll('.course');
         allCourses.forEach(courseDiv => {
             const courseKey = courseDiv.textContent.split(' (')[0];
             const [year, semesterIndex] = courseDiv.parentElement.parentElement.querySelector('h2').textContent.match(/\d+/)[0] + '-' + (courseDiv.parentElement.querySelector('h3').textContent.includes('Semestre 1') ? 0 : 1);
-            const fullKey = `${year}-${semesterIndex}-${courseKey}`;
-
-            if (!checkSemesterUnlocked(years, parseInt(year), parseInt(semesterIndex), completedCourses)) {
-                courseDiv.classList.add('locked');
-                courseDiv.style.pointerEvents = 'none';
-            } else {
-                courseDiv.classList.remove('locked');
-                courseDiv.style.pointerEvents = 'auto';
+            
+            // Solo actualiza semestres futuros, no el semestre actual
+            if (parseInt(year) > currentYear || (parseInt(year) === currentYear && parseInt(semesterIndex) > currentSemesterIndex)) {
+                if (!checkSemesterUnlocked(years, parseInt(year), parseInt(semesterIndex), completedCourses)) {
+                    courseDiv.classList.add('locked');
+                    courseDiv.style.pointerEvents = 'none';
+                } else {
+                    courseDiv.classList.remove('locked');
+                    courseDiv.style.pointerEvents = 'auto';
+                }
             }
         });
     }

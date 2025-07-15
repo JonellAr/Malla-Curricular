@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    font-family: 'Roboto', sans-serif;
+    background-color: #E8F5E9; /* Verde pastel claro */
+    color: #263238; /* Gris oscuro para texto */
     margin: 0;
     padding: 20px;
 }
@@ -8,11 +11,17 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
+    background-color: #FFFFFF; /* Fondo blanco para el contenedor */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    color: #2E7D32; /* Verde oscuro */
+    font-weight: 700;
+    margin-bottom: 30px;
 }
 
 .year {
@@ -20,42 +29,55 @@ h1 {
 }
 
 .year h2 {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
+    background-color: #4CAF50; /* Verde medio */
+    color: #FFFFFF;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 1.5em;
 }
 
 .semester {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    padding: 10px;
+    padding: 15px;
+    background-color: #F1F8E9; /* Verde pastel muy claro */
+    border-radius: 6px;
 }
 
 .semester h3 {
     width: 100%;
-    color: #333;
+    color: #2E7D32; /* Verde oscuro */
+    font-weight: 500;
+    font-size: 1.2em;
+    margin-bottom: 10px;
 }
 
 .course {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 5px;
+    background-color: #FFFFFF;
+    border: 1px solid #C8E6C9; /* Borde verde pastel */
+    padding: 12px;
+    border-radius: 6px;
     cursor: pointer;
     width: calc(50% - 10px);
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.course:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .course.completed {
     text-decoration: line-through;
-    background-color: #e0e0e0;
+    background-color: #DCEDC8; /* Verde pastel claro para completados */
+    color: #263238;
 }
 
 .course.locked {
-    background-color: #f0f0f0;
-    color: #888;
+    background-color: #ECEFF1; /* Gris claro para bloqueados */
+    color: #78909C;
     cursor: not-allowed;
 }
 
